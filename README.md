@@ -90,15 +90,15 @@ Current Release (v1.0)
 Basic HTML, CSS, JS 
 <p align="center"> <img src="assets/images/roadmap.png" alt="Roadmap Visual" width="700"/> </p>
 
-# Clone & Run the Website
+# Clone 
 Follow the steps below to clone this repository and run it locally.
-### 1. Clone the repository
+### Clone the repository
 ```bash
 git clone https://github.com/BlackHunter88/BlackHunter88.github.io.git
 cd BlackHunter88.github.io
 ```
-```bash
 # Credits
+```bash
 Developer: Arvyn AKA PuddingMilki
 Author: PuddingMilki
 All Insanity Roleplay Admin and Players
