@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAPD Dashboard - GTA San Andreas</title>
+    <link href="https://fonts.cdnfonts.com/css/pricedown" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <img src="https://static.wikia.nocookie.net/gtawiki/images/c/cf/SanAndreasPoliceDepartment-GTASA-Emblem.png/revision/latest?cb=20180727000402" alt="SAPD Logo">
+        <h1>San Andreas Police Department Dashboard</h1>
+        <p>© Insanity Roleplay Police </p>
+        <div class="user-menu">
+            <span id="usernameDisplay">Logged in as: Guest</span>
+            <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </header>
+    
+    <nav>
+        <button onclick="showSection('landing')"><i class="fas fa-home"></i> Landing</button>
+        <button onclick="showSection('arrest')"><i class="fas fa-handcuffs"></i> Arrest Warrants</button>
+        <button onclick="showSection('roster')"><i class="fas fa-users"></i> SAPD Roster</button>
+        <button onclick="showSection('cases')"><i class="fas fa-folder-open"></i> Case Files</button>
+        <button onclick="showSection('wanted')"><i class="fas fa-exclamation-triangle"></i> Wanted List</button>
+        <button onclick="showSection('logs')"><i class="fas fa-clipboard-list"></i> Patrol Logs</button>
+        <button onclick="showSection('charges')"><i class="fas fa-gavel"></i> Charges Database</button>
+        <button onclick="showSection('evidence')"><i class="fas fa-box"></i> Evidence Log</button>
+        <button onclick="showSection('incidents')"><i class="fas fa-exclamation-circle"></i> Incident Reports</button>
+        <button onclick="showSection('penal')"><i class="fas fa-book"></i> Penal Code Tools</button>
+        <button onclick="showSection('detective')"><i class="fas fa-user-secret"></i> Detective Section</button>
+        <button onclick="showSection('handbook')"><i class="fas fa-book-open"></i> SAPD Handbook</button>
+        <button onclick="showSection('impound')"><i class="fas fa-car"></i> Impound Log</button>
+    </nav>
+    
+    <div id="landing" class="section active">
+        <h2>Welcome to SAPD Dashboard</h2>
+        <p>Today's date: October 01, 2025</p>
+        <p>Quick Overview:</p>
+        <ul>
+            <li>Total Arrest Warrants: <span id="totalArrests">0</span></li>
+            <li>Total Open Cases: <span id="totalCases">0</span></li>
+            <li>Total Wanted Individuals: <span id="totalWanted">0</span></li>
+            <li>Total Patrol Logs Today: <span id="totalLogsToday">0</span></li>
+        </ul>
+        <button onclick="updateLandingStats()">Refresh Stats</button>
+    </div>
+    
+    <div id="arrest" class="section">
+        <h2>Arrest Warrants</h2>
+        <form id="arrestForm">
+            <input type="text" id="suspectName" placeholder="Suspect Name" required>
+            <input type="text" id="crime" placeholder="Crime Committed" required>
+            <input type="date" id="issueDate" required>
+            <textarea id="description" placeholder="Description/Warrant Details" required></textarea>
+            <button type="submit">Issue Warrant</button>
+            <button type="button" onclick="exportData('arrests')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="arrestSearch" placeholder="Search Warrants..." oninput="filterList('arrestList', this.value)"></div>
+        <ul id="arrestList"></ul>
+    </div>
+    
+    <div id="roster" class="section">
+        <h2>SAPD Roster by Rank</h2>
+        <form id="rosterForm">
+            <input type="text" id="officerName" placeholder="Officer Name" required>
+            <input type="text" id="badgeNumber" placeholder="Badge Number" required>
+            <select id="rank" required>
+                <option value="">Select Rank</option>
+                <option value="Officer">Officer</option>
+                <option value="Detective">Detective</option>
+                <option value="Sergeant">Sergeant</option>
+                <option value="Lieutenant">Lieutenant</option>
+                <option value="Captain">Captain</option>
+                <option value="Chief">Chief</option>
+            </select>
+            <button type="submit">Add Officer</button>
+            <button type="button" onclick="exportData('roster')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="rosterSearch" placeholder="Search Officers..." oninput="filterRoster(this.value)"></div>
+        <div id="rosterList"></div>
+    </div>
+    
+    <div id="cases" class="section">
+        <h2>Case Files</h2>
+        <form id="caseForm">
+            <input type="text" id="caseTitle" placeholder="Case Title" required>
+            <input type="text" id="suspects" placeholder="Suspects Involved" required>
+            <input type="date" id="caseDate" required>
+            <textarea id="caseDetails" placeholder="Case Details" required></textarea>
+            <input type="text" id="charges" placeholder="Charges (comma-separated)" required>
+            <button type="submit">Create Case File</button>
+            <button type="button" onclick="exportData('cases')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="caseSearch" placeholder="Search Cases..." oninput="filterList('caseList', this.value)"></div>
+        <ul id="caseList"></ul>
+    </div>
+
+    <div id="wanted" class="section">
+        <h2>Wanted List</h2>
+        <form id="wantedForm">
+            <input type="text" id="wantedName" placeholder="Buronan Name" required>
+            <select id="wantedLevel" required>
+                <option value="">Wanted Level</option>
+                <option value="1">1 Star</option>
+                <option value="2">2 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="5">5 Stars</option>
+                <option value="6">6 Stars</option>
+            </select>
+            <input type="text" id="wantedReason" placeholder="Reason" required>
+            <input type="text" id="lastSeen" placeholder="Last Seen Location (e.g., Los Santos)" required>
+            <button type="submit">Add to Wanted List</button>
+            <button type="button" onclick="exportData('wanteds')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="wantedSearch" placeholder="Search Wanted..." oninput="filterList('wantedList', this.value)"></div>
+        <ul id="wantedList"></ul>
+    </div>
+
+    <div id="logs" class="section">
+        <h2>Patrol Logs</h2>
+        <form id="logForm">
+            <input type="date" id="logDate" required>
+            <input type="text" id="logOfficer" placeholder="Officer Name" required>
+            <input type="text" id="logLocation" placeholder="Location (e.g., Vinewood)" required>
+            <textarea id="logDescription" placeholder="Patrol Details" required></textarea>
+            <button type="submit">Add Log</button>
+            <button type="button" onclick="exportData('logs')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="logSearch" placeholder="Search Logs..." oninput="filterList('logList', this.value)"></div>
+        <ul id="logList"></ul>
+    </div>
+
+    <div id="charges" class="section">
+        <h2>Charges Database</h2>
+        <form id="chargeForm">
+            <input type="text" id="chargeName" placeholder="Charge Name (e.g., Grand Theft Auto)" required>
+            <input type="text" id="chargeCode" placeholder="Charge Code (e.g., GTA-001)" required>
+            <textarea id="chargeDescription" placeholder="Description" required></textarea>
+            <input type="text" id="penalty" placeholder="Penalty (e.g., 5 years imprisonment)" required>
+            <button type="submit">Add Charge</button>
+            <button type="button" onclick="exportData('charges')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="chargeSearch" placeholder="Search Charges..." oninput="filterList('chargeList', this.value)"></div>
+        <ul id="chargeList"></ul>
+    </div>
+
+    <div id="evidence" class="section">
+        <h2>Evidence Log</h2>
+        <form id="evidenceForm">
+            <input type="text" id="evidenceId" placeholder="Evidence ID (e.g., EV-001)" required>
+            <input type="text" id="caseRef" placeholder="Related Case Title" required>
+            <textarea id="evidenceDetails" placeholder="Evidence Description" required></textarea>
+            <input type="text" id="storageLocation" placeholder="Storage Location (e.g., LS Evidence Locker)" required>
+            <button type="submit">Log Evidence</button>
+            <button type="button" onclick="exportData('evidence')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="evidenceSearch" placeholder="Search Evidence..." oninput="filterList('evidenceList', this.value)"></div>
+        <ul id="evidenceList"></ul>
+    </div>
+
+    <div id="incidents" class="section">
+        <h2>Incident Reports</h2>
+        <form id="incidentForm">
+            <input type="datetime-local" id="incidentDate" required>
+            <input type="text" id="incidentLocation" placeholder="Location (e.g., Grove Street)" required>
+            <input type="text" id="incidentOfficer" placeholder="Reporting Officer" required>
+            <textarea id="incidentDetails" placeholder="Incident Details" required></textarea>
+            <button type="submit">Submit Report</button>
+            <button type="button" onclick="exportData('incidents')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="incidentSearch" placeholder="Search Incidents..." oninput="filterList('incidentList', this.value)"></div>
+        <ul id="incidentList"></ul>
+    </div>
+
+    <div id="penal" class="section">
+        <h2>SAPD 2025 Penal Code Tools</h2>
+        <p>Insanity Reality Project SAPD - Detailed Penal Code List & Arrest Command Generator</p>
+        <p>Developed by: PuddingMilki / David Anderson | Inspired by: Islah / Lucas Rutherford</p>
+        <p>TIP: Use the search box or code input to find and select charges. Use Ctrl+K to focus search, Ctrl+S to focus PlayerID/Name input.</p>
+        <form id="penalForm">
+            <input type="text" id="playerId" placeholder="PlayerID or Name (CTRL + S)" onfocus="this.placeholder=''">
+            <input type="text" id="penalSearch" placeholder="Search a charge name or code (CTRL + K)" onfocus="this.placeholder=''">
+        </form>
+        <table id="penalTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Charge</th>
+                    <th>Jailtime</th>
+                    <th>Fine</th>
+                    <th>Bail</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="penalList"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Total:</td>
+                    <td id="totalJailtime">0</td>
+                    <td id="totalFine">$0.00</td>
+                    <td id="totalBail">$0.00</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="penal-input">
+            <label>Code Input (space separated):</label>
+            <input type="text" id="codeInput" placeholder="e.g., GTA-001 VIO-002">
+            <button type="button" onclick="generateCommand()">Generate Command</button>
+            <button type="button" onclick="exportData('penal')">Export Charges</button>
+        </div>
+        <div class="penal-output">
+            <label>Generated Command:</label>
+            <input type="text" id="generatedCommand" readonly value="/arrest 0 0 0 0">
+        </div>
+    </div>
+
+    <div id="detective" class="section">
+        <h2>Detective Section</h2>
+        <form id="detectiveForm">
+            <input type="text" id="openCase" placeholder="Open Case Title" required>
+            <input type="text" id="primeSuspect" placeholder="Prime Suspect" required>
+            <textarea id="confidentialNotes" placeholder="Confidential Notes" required></textarea>
+            <input type="text" id="leadOfficer" placeholder="Lead Detective" required>
+            <button type="submit">Submit Case</button>
+            <button type="button" onclick="exportData('detectives')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="detectiveSearch" placeholder="Search Cases..." oninput="filterList('detectiveList', this.value)"></div>
+        <ul id="detectiveList"></ul>
+    </div>
+
+    <div id="handbook" class="section">
+        <h2>SAPD Handbook</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <h3 onclick="toggleAccordion(this)">1. Ten Code</h3>
+                <div class="accordion-content">
+                    <form id="tenCodeForm">
+                        <input type="text" id="tenCode" placeholder="Ten Code (e.g., 10-4)" required>
+                        <input type="text" id="tenDescription" placeholder="Description (e.g., Acknowledged)" required>
+                        <button type="submit">Add Ten Code</button>
+                    </form>
+                    <div class="search-bar"><input type="text" id="tenSearch" placeholder="Search Ten Codes..." oninput="filterList('tenList', this.value)"></div>
+                    <ul id="tenList"></ul>
+                    <input type="file" id="tenCodeImport" accept=".json" style="margin-top: 10px;">
+                    <button onclick="importTenCodes()">Import Ten Codes</button>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 onclick="toggleAccordion(this)">2. FTP</h3>
+                <div class="accordion-content">
+                    <form id="ftpForm">
+                        <input type="text" id="ftpStep" placeholder="FTP Step (e.g., Step 1)" required>
+                        <textarea id="ftpDescription" placeholder="Description" required></textarea>
+                        <button type="submit">Add FTP Item</button>
+                    </form>
+                    <div class="search-bar"><input type="text" id="ftpSearch" placeholder="Search FTP Items..." oninput="filterList('ftpList', this.value)"></div>
+                    <ul id="ftpList"></ul>
+                    <input type="file" id="ftpImport" accept=".json" style="margin-top: 10px;">
+                    <button onclick="importFTPItems()">Import FTP Items</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="impound" class="section">
+        <h2>Impound Log</h2>
+        <form id="impoundForm">
+            <input type="text" id="vehicleModel" placeholder="Vehicle Model (e.g., Police Cruiser)" required>
+            <input type="text" id="plateNumber" placeholder="Plate Number" required>
+            <input type="text" id="impoundReason" placeholder="Reason for Impound" required>
+            <input type="datetime-local" id="impoundDate" required>
+            <input type="text" id="impoundOfficer" placeholder="Officer Name" required>
+            <button type="submit">Log Impound</button>
+            <button type="button" onclick="exportData('impounds')">Export Data</button>
+        </form>
+        <div class="search-bar"><input type="text" id="impoundSearch" placeholder="Search Impounds..." oninput="filterList('impoundList', this.value)"></div>
+        <ul id="impoundList"></ul>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAPD Login - GTA San Andreas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="indexcss.css">
+    <script type="module" src="config.js"></script>
+</head>
+<body>
+    <div class="box">
+        <form id="loginForm" autocomplete="off">
+            <h2>Sign in</h2>
+            <div class="inputBox">
+                <input type="text" id="username" required>
+                <span>Username</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input type="password" id="password" required>
+                <span>Password</span>
+                <i class="fas fa-eye password-toggle" onclick="togglePassword()"></i>
+            </div>
+            <div class="links">
+                <a href="#">Forgot Password? (Contact Admin)</a>
+            </div>
+            <input type="submit" value="Login">
+            <p class="error-msg">Invalid username or password!</p>
+        </form>
+    </div>
+    <script type="module">
+        import CONFIG from './config.js';
+
+        // Set initial credentials jika belum ada
+        if (!localStorage.getItem('username') || !localStorage.getItem('password')) {
+            localStorage.setItem('username', CONFIG.username);
+            localStorage.setItem('password', CONFIG.password);
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.password-toggle');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (storedUsername === username && storedPassword === password) {
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = 'dashboard.html';
+            } else {
+                document.querySelector('.error-msg').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

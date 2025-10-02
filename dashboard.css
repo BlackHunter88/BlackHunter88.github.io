@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f5faff;
+    color: #002b80;
+    min-height: 100vh;
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+header {
+    background-color: #4ca3ff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #ffffff;
+    animation: slideDown 0.5s ease-out;
+    position: relative;
+}
+
+header img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+header h1, header p {
+    color: #ffffff;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.user-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+}
+
+.user-menu span {
+    font-size: 16px;
+}
+
+.user-menu button {
+    padding: 5px 10px;
+    background-color: #ff3333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-menu button:hover {
+    background-color: #cc0000;
+}
+
+nav {
+    background-color: #0055cc;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav button {
+    padding: 12px 20px;
+    background-color: #0077ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+nav button:hover {
+    transform: scale(1.05);
+    background-color: #0044cc;
+}
+
+.section {
+    display: none;
+    padding: 20px;
+    max-width: 1300px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInSection 0.5s ease-in;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeInSection {
+    0% { opacity: 0; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea, select {
+    padding: 10px;
+    border: 1px solid #0055cc;
+    border-radius: 4px;
+    background: #f5faff;
+    color: #002b80;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0077ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background-color: #0055cc;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #0055cc;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.group {
+    margin-top: 15px;
+}
+
+.group h3 {
+    background-color: #0055cc;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+li {
+    background: #f5faff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+li:hover {
+    transform: scale(1.02);
+}
+
+.delete-btn {
+    background-color: #ff3333;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+#penal p {
+    color: #002b80;
+    margin: 10px 0;
+}
+
+#penal table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    margin: 10px 0;
+    background: #ffffff;
+}
+
+#penal th, #penal td {
+    padding: 12px;
+    border: 1px solid #0055cc;
+    text-align: left;
+}
+
+#penal th {
+    background-color: #0077ff;
+    color: #ffffff;
+}
+
+#penal td button {
+    background-color: #0055cc;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#penal td button:hover {
+    background-color: #0077ff;
+}
+
+#penal td button.selected {
+    background-color: #ff3333;
+}
+
+#penal td button.selected:hover {
+    background-color: #cc0000;
+}
+
+.penal-input, .penal-output {
+    margin: 15px 0;
+}
+
+.penal-input label, .penal-output label {
+    color: #002b80;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#codeInput, #generatedCommand {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #0055cc;
+    border-radius: 4px;
+    background: #f5faff;
+    color: #002b80;
+}
+
+/* Accordion for Handbook */
+.accordion-item h3 {
+    background-color: #0055cc;
+    color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+.accordion-item h3:hover {
+    background-color: #0077ff;
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    background: #f5faff;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-content.active {
+    display: block;
+}
