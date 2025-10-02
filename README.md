@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="SAPD Banner" width="1000"/>
+  <img src="assets/banner.png" alt="Coming Soon" width="1000"/>
 </p>
 
 <p align="center">
@@ -65,19 +65,30 @@ Core features of the SAPD Roleplay website:
   <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5ceba86c-d167-4842-aa48-159d64654f1f" />
 
 # FAQ
+
 Q: Is this site connected to real police databases?
+
 A: No. This is a fictional roleplay dashboard for in-game administration.
-----------------------------------------
+----------------------------------------------
 Q: Can I use the UI on my public server?
+
 A: Yes.
-------------------------------------------
+----------------------------------------------
 Q: Does this repo include backend services?
+
 A: No
------------------------------------------
+----------------------------------------------
 
 #  Security
 Do not report fictional exploits publicly.
 This project is educational and roleplay-oriented only.
+This is fictional software.
+Do not use it for **real-world law enforcement.**
+
+# Roadmap
+Current Release (v1.0)
+Basic HTML, CSS, JS 
+<p align="center"> <img src="assets/images/roadmap.png" alt="Roadmap Visual" width="700"/> </p>
 
 # Credits
 Lead Developer: Arvyn AKA PuddingMilki
