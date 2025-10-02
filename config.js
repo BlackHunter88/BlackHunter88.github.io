@@ -1,8 +1,9 @@
 // config.js
 const CONFIG = {
-    username: "ALOK", 
-    password: "ALOKDISKON"   
+    username: "Admin", 
+    password: "Admin123"   
     
 };
+
 
 export default CONFIG;
